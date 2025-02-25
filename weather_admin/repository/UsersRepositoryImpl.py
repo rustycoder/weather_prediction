@@ -1,20 +1,16 @@
 from weather_admin.repository.interface import UsersRepository
-from weather_admin.models import Users
+# from weather_admin.models import Users
 
 class UsersRepositoryImpl(UsersRepository):
 
     def create(self, username, password):
-        user = Users(username=username, password=password)
-        user.save()
+        pass
     
     def retrieve(self):
-        return Users.objects.all().values()
-
+        pass
+    
     def update(self, id, password):
-        user = Users.objects.all()[id]
-        user.password = password
-        user.save()
-
+        pass
+    
     def delete(self, id):
-        user = Users.objects.all()[id]
-        user.delete()
+        pass

@@ -3,6 +3,7 @@ from django.template import loader
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from .forms import SignUpForm
 
 
 def admin_home(request):
@@ -39,7 +40,21 @@ def admin_register(request):
         messages.success(request, "You have been logged in.")
         return redirect('weather_admin_home')
     else:
-        return render(request, 'register.html', {})
+        if request.method == 'POST':
+            form = SignUpForm(request.POST)
+            if form.is_valid():
+                form.save()
+                # Authenticate and login
+                username = form.cleaned_data['username']
+                password = form.cleaned_data['password1']
+                user = authenticate(username=username, password=password)
+                login(request, user)
+                messages.success(request, "You Have Successfully Registered! Welcome!")
+                return redirect('weather_admin_home')
+        else:
+            form = SignUpForm()
+            return render(request, 'register.html', {'form':form})
+    return render(request, 'register.html', {'form':form})
 
 def admin_logout(request):
     logout(request)
