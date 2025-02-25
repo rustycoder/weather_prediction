@@ -23,7 +23,7 @@ def admin_login(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, "You have been logged in.")
-                return render(request, 'home.html', {})
+                return redirect('weather_admin_home')
             else:
                 messages.success(request, "There was an error. Please, try again.")
                 return redirect('weather_admin_login')
@@ -44,4 +44,4 @@ def admin_register(request):
 def admin_logout(request):
     logout(request)
     messages.success(request, "You have logged out.")
-    return redirect('weather_admin_home')
+    return redirect('weather_admin_login')
