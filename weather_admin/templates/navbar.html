@@ -1,6 +1,12 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+{% load static %}
+<nav class="navbar navbar-expand-lg container">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'weather_admin_home' %}">Weather Prediction</a>
+        <a class="navbar-brand me-1" href="{% url 'weather_admin_home' %}">
+            <img src="{% static 'images/logo_.png' %}" alt="Weather Prediction Logo" height="30"
+                class="d-inline-block align-text-top me-1">
+            Weather Prediction
+        </a>
+        <p class="fw-lighter mb-0 me-3">with Artificial Intelligence</p>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
