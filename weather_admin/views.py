@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from weather_prediction.settings import EMAIL_HOST_USER
 
 # from .service.OpenWeatherServiceImpl import current_weather_data
-from .service.OpenWeatherServiceImpl import OpenWeatherServiceImpl
+from .service.OpenWeatherService import OpenWeatherService
 from .forms import SignUpForm
 from .models import Profile
 from datetime import datetime
@@ -20,7 +20,7 @@ def admin_home(request):
         current_user = User.objects.get(username=request.user)
         current_profile = Profile.objects.get(user=current_user)
         # TODO Get Open API Realtime Data
-        open_weather_service = OpenWeatherServiceImpl()
+        open_weather_service = OpenWeatherService()
         weather_data, error_message = open_weather_service.current_weather_data(27.7172, 85.3240)
         if weather_data:
             print(weather_data)

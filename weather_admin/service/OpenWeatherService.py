@@ -1,4 +1,3 @@
-from weather_admin.service.interface import OpenWeatherService
 from weather_prediction.settings import OPEN_API_KEY, OPEN_API_DATA_URL, OPEN_API_GEO_URL, OPEN_API_MAP_URL
 
 from loguru import logger
@@ -6,7 +5,7 @@ from datetime import datetime
 import requests
 
 
-class OpenWeatherServiceImpl:
+class OpenWeatherService:
 
     def current_weather_data(self, latitude, longitude):
         # https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
