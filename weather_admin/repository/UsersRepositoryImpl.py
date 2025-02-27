@@ -1,5 +1,4 @@
 from weather_admin.repository.interface import UsersRepository
-# from weather_admin.models import Users
 
 class UsersRepositoryImpl(UsersRepository):
 

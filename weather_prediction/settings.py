@@ -123,11 +123,16 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#
-
+# Send Email (Gmail Application)
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'aprajun@gmail.com'
 EMAIL_HOST_PASSWORD = 'phqm tpfi qjde ccjl'
+
+# Open Weather API 
+OPEN_API_DATA_URL = 'https://api.openweathermap.org/data/2.5/'
+OPEN_API_GEO_URL = 'http://api.openweathermap.org/geo/1.0/direct'
+OPEN_API_MAP_URL = 'https://tile.openweathermap.org/map/'
+OPEN_API_KEY = 'ad7a0d3241b9002f727b41ce4323a46d'

@@ -1,6 +1,32 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="card mt-3" style="width: 18rem;">
+    <div class="card-header">
+        Open Weather Data
+        <small class="fw-lighter mb-0 me-3 align-bottom">Realtime</small>
+    </div>
+    <div class="card-body">
+        <img src="https://openweathermap.org/img/wn/{{weather_data.weather.0.icon}}@2x.png" class="card-img-top"
+            alt="{{weather_data.weather.0.description}}">
+        <p class="card-text">{{weather_data.weather.0.main}}</p>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Temperature {{weather_data.main.temp}}
+            <small class="fw-lighter mb-0 me-3 align-bottom">(Min. {{weather_data.main.temp_min}} : Max
+                {{weather_data.main.temp_max}})</small>
+        </li>
+        <li class="list-group-item">Feels Like {{weather_data.main.feels_like}}</li>
+        <li class="list-group-item">Pressure {{weather_data.main.pressure}}</li>
+        <li class="list-group-item">Humidity {{weather_data.main.humidity}}</li>
+        <li class="list-group-item">Sea Level {{weather_data.main.sea_level}}</li>
+        <li class="list-group-item">Ground Level {{weather_data.main.grnd_level}}</li>
+    </ul>
+    <div class="card-footer text-body-secondary">
+        <small class="text-body-secondary">Fetched on {{weather_data.dt}}</small>
+    </div>
+</div>
+
 <div class="card mt-3">
     <div class="card-header">
         Profile

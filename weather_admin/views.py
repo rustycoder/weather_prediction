@@ -8,17 +8,28 @@ from django.contrib.auth.models import User
 
 from weather_prediction.settings import EMAIL_HOST_USER
 
+# from .service.OpenWeatherServiceImpl import current_weather_data
+from .service.OpenWeatherServiceImpl import OpenWeatherServiceImpl
 from .forms import SignUpForm
 from .models import Profile
-
+from datetime import datetime
 
 
 def admin_home(request):
     if request.user.is_authenticated:
         current_user = User.objects.get(username=request.user)
         current_profile = Profile.objects.get(user=current_user)
-        print(current_profile.phone)
-        return render(request, 'home.html', {'current_user':current_user, 'current_profile':current_profile})
+        # TODO Get Open API Realtime Data
+        open_weather_service = OpenWeatherServiceImpl()
+        weather_data, error_message = open_weather_service.current_weather_data(27.7172, 85.3240)
+        if weather_data:
+            print(weather_data)
+            print(type(weather_data))
+        elif error_message:
+            print(f"Error: {error_message}")
+        else:
+            print("An unknown error occurred.")
+        return render(request, 'home.html', {'current_user':current_user, 'current_profile':current_profile, 'weather_data':weather_data})
     else:
         return render(request, 'login.html', {})
 
