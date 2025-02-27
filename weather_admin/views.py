@@ -146,6 +146,8 @@ def admin_register(request):
             return render(request, 'register.html', {'form':form})
     return render(request, 'register.html', {'form':form})
 
+
+
 def profile_update(request):
     if request.user.is_authenticated:
         current_user = User.objects.get(username=request.user)
@@ -168,6 +170,7 @@ def profile_update(request):
                 return render(request, 'profile_update.html', {'form':form})
     else:
         return render(request, 'login.html', {})
+
 
 
 def admin_logout(request):
