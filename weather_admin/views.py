@@ -9,11 +9,12 @@ from django.contrib.auth.models import User
 from weather_prediction.settings import EMAIL_HOST_USER
 
 from .service.OpenWeatherService import OpenWeatherService
-from .forms import SignUpForm
+from .forms import SignUpForm, ProfileForm
 from .models import Profile
 
 from loguru import logger
 
+import random
 
 
 def admin_dashboard(request):
@@ -38,6 +39,10 @@ def profile(request):
     else:
         return render(request, 'login.html', {})
     
+
+
+
+
 
 
 def weather_realtime(request):
@@ -126,7 +131,14 @@ def admin_register(request):
                 username = form.cleaned_data['username']
                 password = form.cleaned_data['password1']
                 user = authenticate(username=username, password=password)
+                logger.debug(user)
                 login(request, user)
+                current_user = User.objects.get(username=user)
+                current_profile = Profile()
+                logger.debug(current_profile)
+                current_profile.otp = random.randint(1000000, 9999999)
+                current_profile.user = current_user
+                current_profile.save()
                 messages.success(request, "You Have Successfully Registered! Welcome!")
                 return redirect('weather_admin_dashboard')
         else:
@@ -134,6 +146,28 @@ def admin_register(request):
             return render(request, 'register.html', {'form':form})
     return render(request, 'register.html', {'form':form})
 
+def profile_update(request):
+    if request.user.is_authenticated:
+        current_user = User.objects.get(username=request.user)
+        current_profile = Profile.objects.get(user=current_user)
+        if request.method == 'GET':
+            form = ProfileForm(instance=current_profile)
+            return render(request, 'profile_update.html', {'form':form})
+        elif request.method == 'POST':
+            form = ProfileForm(request.POST)
+            if form.is_valid():
+                current_profile.phone = form.cleaned_data['phone']
+                current_profile.address = form.cleaned_data['address']
+                current_profile.city = form.cleaned_data['city']
+                current_profile.state = form.cleaned_data['state']
+                current_profile.zipcode = form.cleaned_data['zipcode']
+                current_profile.save()
+                messages.success(request, "You Have Successfully Updated Your Profile.")
+                return redirect('weather_admin_profile')
+            else:
+                return render(request, 'profile_update.html', {'form':form})
+    else:
+        return render(request, 'login.html', {})
 
 
 def admin_logout(request):

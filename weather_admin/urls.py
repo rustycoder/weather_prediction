@@ -10,7 +10,8 @@ urlpatterns = [
     path('reset_password', views.admin_reset_password, name='weather_admin_reset_password'),
 
     path('profile', views.profile, name='weather_admin_profile'),
-    
+    path('update_profile', views.profile_update, name='weather_admin_profile_update'),
+
     path('weather_realtime', views.weather_realtime, name='weather_admin_weather_realtime'),
     path('weather_forecast', views.weather_forecast, name='weather_admin_weather_forecast'),
     path('weather_prediction', views.weather_prediction, name='weather_admin_weather_prediction'),
