@@ -35,9 +35,9 @@ class OpenWeatherService:
             response = requests.get(url)
             response.raise_for_status()  
 
-            weather_data = response.json()
+            weather_forecast = response.json()
 
-            return weather_data, None
+            return weather_forecast, None
         except requests.exceptions.RequestException as e:
             return None, str(e)
         except Exception as e: 
@@ -53,9 +53,9 @@ class OpenWeatherService:
             response = requests.get(url)
             response.raise_for_status()  
 
-            weather_data = response.json()
+            weather_maps = response.json()
 
-            return weather_data, None
+            return weather_maps, None
         except requests.exceptions.RequestException as e:
             return None, str(e)
         except Exception as e: 
@@ -70,9 +70,12 @@ class OpenWeatherService:
             response = requests.get(url)
             response.raise_for_status()  
 
-            weather_data = response.json()
+            air_pollution_data = response.json()
+            air_pollution_data['list'][0]['dt'] = datetime.fromtimestamp(air_pollution_data['list'][0]['dt'])
+            qualitative_name = {1:'Good', 2:'Fair', 3:'Moderate', 4:'Poor', 5:'Very Poor'}
+            air_pollution_data['list'][0]['main']['qualitative_name'] = qualitative_name.get(air_pollution_data['list'][0]['main']['aqi'])
 
-            return weather_data, None
+            return air_pollution_data, None
         except requests.exceptions.RequestException as e:
             return None, str(e)
         except Exception as e: 
@@ -87,9 +90,15 @@ class OpenWeatherService:
             response = requests.get(url)
             response.raise_for_status()  
 
-            weather_data = response.json()
+            air_pollution_forecast = response.json()
+            qualitative_name = {1:'Good', 2:'Fair', 3:'Moderate', 4:'Poor', 5:'Very Poor'}
+            for l in air_pollution_forecast['list']:
+                l['dt_txt'] = datetime.fromtimestamp(l['dt'])
+                l['main']['qualitative_name'] = qualitative_name.get(l['main']['aqi'])
 
-            return weather_data, None
+            logger.debug(air_pollution_forecast)
+
+            return air_pollution_forecast, None
         except requests.exceptions.RequestException as e:
             return None, str(e)
         except Exception as e: 
@@ -105,9 +114,9 @@ class OpenWeatherService:
             response = requests.get(url)
             response.raise_for_status()  
 
-            weather_data = response.json()
+            air_pollution_history = response.json()
 
-            return weather_data, None
+            return air_pollution_history, None
         except requests.exceptions.RequestException as e:
             return None, str(e)
         except Exception as e: 
@@ -123,9 +132,9 @@ class OpenWeatherService:
             response = requests.get(url)
             response.raise_for_status()  
 
-            weather_data = response.json()
+            geocoding = response.json()
 
-            return weather_data, None
+            return geocoding, None
         except requests.exceptions.RequestException as e:
             return None, str(e)
         except Exception as e: 

@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- Weather 5 Day / 3 Hrs Forecast -->
+<div class="card mt-3 mb-3">
+    <div class="card-header px-2">
+        Open Weather Data
+        <small class="fw-lighter mb-0 me-3 align-bottom">Forecast</small>
+    </div>
+    <div class="card-body p-0">
+        <table class="table">
+            <thead>
+
+            </thead>
+            <tbody>
+                {% for l in weather_forecast.list %}
+                <tr class="table-light">
+                    <td colspan="6">{{l.dt_txt}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="d-flex flex-column">
+                            <div class="d-flex flex-row align-items-center">
+                                <img src="https://openweathermap.org/img/wn/{{l.weather.0.icon}}@2x.png" width="24px"
+                                    alt="{{weather_data.weather.0.description}}">
+                                <h6 class="mb-0">Weather</h6>
+
+                            </div>
+                            <h1 class="display-4">{{l.weather.0.main}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom">Minimum
+                                {{l.weather.0.description}}</small>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex flex-column">
+                            <div class="d-flex flex-row align-items-center gap-1">
+                                <img src="{% static 'icons/temperature.svg' %}" width="24px" alt="temperature">
+                                <h6 class="mb-0">Temperature</h6>
+                            </div>
+                            <h1 class="display-4">{{l.main.temp}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom">Feels like {{l.main.feels_like}}</small>
+                            <small class="fw-lighter mb-0 me-3 align-bottom">Minimum {{l.main.temp_min}}</small>
+                            <small class="fw-lighter mb-0 me-3 align-bottom">Maximum {{l.main.temp_max}}</small>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex flex-column">
+                            <div class="d-flex flex-row align-items-center gap-1">
+                                <img src="{% static 'icons/pressure.svg' %}" width="24px" alt="pressure">
+                                <h6 class="mb-0">Pressure</h6>
+                            </div>
+                            <h1 class="display-4">{{l.main.pressure}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom">Ground Level {{l.main.grnd_level}}</small>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex flex-column">
+                            <div class="d-flex flex-row align-items-center gap-1">
+                                <img src="{% static 'icons/humidity.svg' %}" width="24px" alt="humiidty">
+                                <h6 class="mb-0">Humidity</h6>
+                            </div>
+                            <h1 class="display-4">{{l.main.humidity}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom">Sea Level {{l.main.sea_level}}</small>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex flex-column">
+                            <div class="d-flex flex-row align-items-center gap-1">
+                                <img src="{% static 'icons/wind.svg' %}" width="24px" alt="wind">
+                                <h6 class="mb-0">Wind</h6>
+                            </div>
+                            <h1 class="display-4">{{l.wind.speed}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom">Degree {{l.wind.deg}}</small>
+                            <small class="fw-lighter mb-0 me-3 align-bottom">Gust {{l.wind.gust}}</small>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer text-body-secondary px-2">
+        <small class="text-body-secondary">Location {{weather_forecast.city.name}}, {{weather_forecast.city.country}} @
+            {{weather_forecast.city.coord.lat}} - {{weather_forecast.city.coord.lon}}</small>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="card mt-3 mb-3">
+    <div class="card-header px-2">
+        Air Pollution
+        <small class="fw-lighter mb-0 me-3 align-bottom">Forecast</small>
+    </div>
+    <div class="card-body p-0">
+        <table class="table">
+            <thead>
+
+            </thead>
+            <tbody>
+                {% for l in air_pollution_forecast.list %}
+                <tr class="table-light">
+                    <td colspan="7">{{l.dt_txt}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="d-flex flex-column">
+                            <div class="d-flex flex-row align-items-center">
+                                <img src="{% static 'icons/air.svg' %}" width="24px" alt="air pollution">
+                                <h6 class="mb-0">Air Quality Index</h6>
+
+                            </div>
+                            <h1 class="display-4">{{l.main.aqi}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom">
+                                {{l.main.qualitative_name}}</small>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex flex-column">
+                            <h6 class="mb-0">Carbon Monoxide</h6>
+                            <h1 class="display-4">{{l.components.co}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom"> μg/m3</small>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex flex-column">
+                            <h6 class="mb-0">Nitrogen Monoxide</h6>
+                            <h1 class="display-4">{{l.components.no}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom"> μg/m3</small>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex flex-column">
+                            <h6 class="mb-0">Nitrogen Dioxide</h6>
+                            <h1 class="display-4">{{l.components.no2}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom"> μg/m3</small>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex flex-column">
+                            <h6 class="mb-0">Ozone</h6>
+                            <h1 class="display-4">{{l.components.o3}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom"> μg/m3</small>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex flex-column">
+                            <h6 class="mb-0">Sulphur Dioxide</h6>
+                            <h1 class="display-4">{{l.components.so2}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom"> μg/m3</small>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex flex-column">
+                            <h6 class="mb-0">Ammonia</h6>
+                            <h1 class="display-4">{{l.components.nh3}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom"> μg/m3</small>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer text-body-secondary px-2">
+        <small class="text-body-secondary">Forcast for latitude and longitude :
+            {{air_pollution_forecast.coord.lat}} - {{air_pollution_forecast.coord.lon}}</small>
+    </div>
+</div>
+{% endblock %}

@@ -8,28 +8,85 @@ from django.contrib.auth.models import User
 
 from weather_prediction.settings import EMAIL_HOST_USER
 
-# from .service.OpenWeatherServiceImpl import current_weather_data
 from .service.OpenWeatherService import OpenWeatherService
 from .forms import SignUpForm
 from .models import Profile
-from datetime import datetime
+
+from loguru import logger
 
 
-def admin_home(request):
+
+def admin_dashboard(request):
     if request.user.is_authenticated:
         current_user = User.objects.get(username=request.user)
         current_profile = Profile.objects.get(user=current_user)
-        # TODO Get Open API Realtime Data
+
         open_weather_service = OpenWeatherService()
         weather_data, error_message = open_weather_service.current_weather_data(27.7172, 85.3240)
-        if weather_data:
-            print(weather_data)
-            print(type(weather_data))
-        elif error_message:
-            print(f"Error: {error_message}")
-        else:
-            print("An unknown error occurred.")
-        return render(request, 'home.html', {'current_user':current_user, 'current_profile':current_profile, 'weather_data':weather_data})
+        logger.debug(weather_data)
+        return render(request, 'dashboard.html', {'current_user':current_user, 'current_profile':current_profile, 'weather_data':weather_data})
+    else:
+        return render(request, 'login.html', {})
+
+
+
+def profile(request):
+    if request.user.is_authenticated:
+        current_user = User.objects.get(username=request.user)
+        current_profile = Profile.objects.get(user=current_user)
+        return render(request, 'profile.html', {'current_user':current_user, 'current_profile':current_profile})
+    else:
+        return render(request, 'login.html', {})
+    
+
+
+def weather_realtime(request):
+    if request.user.is_authenticated:
+        open_weather_service = OpenWeatherService()
+        weather_data, error_message = open_weather_service.current_weather_data(27.7172, 85.3240)
+        logger.debug(weather_data)
+        return render(request, 'weather_realtime.html', {'weather_data':weather_data})
+    else:
+        return render(request, 'login.html', {})
+
+
+
+def air_pollution_realtime(request):
+    if request.user.is_authenticated:
+        open_weather_service = OpenWeatherService()
+        air_pollution_data, error_message = open_weather_service.current_air_pollution_data(27.7172, 85.3240)
+        logger.debug(air_pollution_data)
+        return render(request, 'air_pollution_realtime.html', {'air_pollution_data':air_pollution_data})
+    else:
+        return render(request, 'login.html', {})
+    
+
+
+def weather_forecast(request):
+    if request.user.is_authenticated:
+        open_weather_service = OpenWeatherService()
+        weather_forecast, error_message = open_weather_service.five_day_weather_forecast(27.7172, 85.3240)
+        logger.debug(weather_forecast)
+        return render(request, 'weather_forecast.html', {'weather_forecast':weather_forecast})
+    else:
+        return render(request, 'login.html', {})
+
+
+
+def air_pollution_forecast(request):
+    if request.user.is_authenticated:
+        open_weather_service = OpenWeatherService()
+        air_pollution_forecast, error_message = open_weather_service.forecast_air_pollution_data(27.7172, 85.3240)
+        logger.debug(air_pollution_forecast)
+        return render(request, 'air_pollution_forecast.html', {'air_pollution_forecast':air_pollution_forecast})
+    else:
+        return render(request, 'login.html', {})
+
+
+
+def weather_prediction(request):
+    if request.user.is_authenticated:
+        return render(request, 'weather_prediction.html', {})
     else:
         return render(request, 'login.html', {})
 
@@ -38,7 +95,7 @@ def admin_home(request):
 def admin_login(request):
     if request.user.is_authenticated:
         messages.success(request, "You have been logged in.")
-        return redirect('weather_admin_home')
+        return redirect('weather_admin_dashboard')
     else:
         if request.method == 'POST':
             username = request.POST['username']
@@ -47,7 +104,7 @@ def admin_login(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, "You have been logged in.")
-                return redirect('weather_admin_home')
+                return redirect('weather_admin_dashboard')
             else:
                 messages.success(request, "There was an error. Please, try again.")
                 return render(request, 'login.html', {})
@@ -59,7 +116,7 @@ def admin_login(request):
 def admin_register(request):
     if request.user.is_authenticated:
         messages.success(request, "You have been logged in.")
-        return redirect('weather_admin_home')
+        return redirect('weather_admin_dashboard')
     else:
         if request.method == 'POST':
             form = SignUpForm(request.POST)
@@ -71,7 +128,7 @@ def admin_register(request):
                 user = authenticate(username=username, password=password)
                 login(request, user)
                 messages.success(request, "You Have Successfully Registered! Welcome!")
-                return redirect('weather_admin_home')
+                return redirect('weather_admin_dashboard')
         else:
             form = SignUpForm()
             return render(request, 'register.html', {'form':form})
@@ -89,7 +146,7 @@ def admin_logout(request):
 def admin_forgot_password(request):
     if request.user.is_authenticated:
         messages.success(request, "You have been logged in.")
-        return redirect('weather_admin_home')
+        return redirect('weather_admin_dashboard')
     else:
         if request.method == 'POST':
             email = request.POST['email']
@@ -117,7 +174,7 @@ def admin_forgot_password(request):
 def admin_reset_password(request):
     if request.user.is_authenticated:
         messages.success(request, "You have been logged in.")
-        return redirect('weather_admin_home')
+        return redirect('weather_admin_dashboard')
     else:
         if request.method == 'GET':
             username = request.GET['username']

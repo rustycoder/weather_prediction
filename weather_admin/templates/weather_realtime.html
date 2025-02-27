@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="card mt-3">
+    <div class="card-header">
+        Open Weather Data
+        <small class="fw-lighter mb-0 me-3 align-bottom">Realtime</small>
+    </div>
+    <div class="card-body">
+        <div class="d-flex flex-column">
+            <div class="d-flex flex-row align-items-center gap-1">
+                <img src="https://openweathermap.org/img/wn/{{weather_data.weather.0.icon}}@2x.png" width="30px"
+                    alt="{{weather_data.weather.0.description}}">
+                <h6 class="mb-0">Weather</h6>
+            </div>
+            <h1 class="display-3">{{weather_data.weather.0.main}}</h1>
+            <small class="fw-lighter mb-0 me-3 align-bottom">
+                {{weather_data.weather.0.description}}</small>
+        </div>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <div class="d-flex flex-column">
+                <div class="d-flex flex-row align-items-center gap-1">
+                    <img src="{% static 'icons/temperature.svg' %}" width="24px" alt="temperature">
+                    <h6 class="mb-0">Temperature</h6>
+                </div>
+                <h1 class="display-3">{{weather_data.main.temp}}</h1>
+                <small class="fw-lighter mb-0 me-3 align-bottom">Feels like {{weather_data.main.feels_like}}</small>
+                <small class="fw-lighter mb-0 me-3 align-bottom">Minimum {{weather_data.main.temp_min}}</small>
+                <small class="fw-lighter mb-0 me-3 align-bottom">Maximum {{weather_data.main.temp_max}}</small>
+            </div>
+        </li>
+        <li class="list-group-item">
+            <div class="d-flex flex-column">
+                <div class="d-flex flex-row align-items-center gap-1">
+                    <img src="{% static 'icons/pressure.svg' %}" width="24px" alt="pressure">
+                    <h6 class="mb-0">Pressure</h6>
+                </div>
+
+                <h1 class="display-3">{{weather_data.main.pressure}}</h1>
+                <small class="fw-lighter mb-0 me-3 align-bottom">Ground Level {{weather_data.main.grnd_level}}</small>
+            </div>
+        </li>
+        <li class="list-group-item">
+            <div class="d-flex flex-column">
+                <div class="d-flex flex-row align-items-center gap-1">
+                    <img src="{% static 'icons/humidity.svg' %}" width="24px" alt="humiidty">
+                    <h6 class="mb-0">Humidity</h6>
+                </div>
+                <h1 class="display-3">{{weather_data.main.humidity}}</h1>
+                <small class="fw-lighter mb-0 me-3 align-bottom">Sea Level {{weather_data.main.sea_level}}</small>
+            </div>
+        </li>
+        <li class="list-group-item">
+            <div class="d-flex flex-column">
+                <div class="d-flex flex-row align-items-center gap-1">
+                    <img src="{% static 'icons/wind.svg' %}" width="24px" alt="wind">
+                    <h6 class="mb-0">Wind</h6>
+                </div>
+                <h1 class="display-3">{{weather_data.wind.speed}}</h1>
+                <small class="fw-lighter mb-0 me-3 align-bottom">Degree {{weather_data.wind.deg}}</small>
+            </div>
+        </li>
+        <li class="list-group-item">
+            <div class="d-flex flex-column">
+                <div class="d-flex flex-row align-items-center gap-1">
+                    <img src="{% static 'icons/visibility.svg' %}" width="24px" alt="visibility">
+                    <h6 class="mb-0">Visibility</h6>
+                </div>
+                <h1 class="display-3">{{weather_data.visibility}}</h1>
+            </div>
+        </li>
+    </ul>
+    <div class="card-footer text-body-secondary">
+        <small class="text-body-secondary">Fetched on {{weather_data.dt}}</small>
+    </div>
+</div>
+{% endblock %}
