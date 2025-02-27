@@ -38,10 +38,6 @@ def profile(request):
         return render(request, 'profile.html', {'current_user':current_user, 'current_profile':current_profile})
     else:
         return render(request, 'login.html', {})
-    
-
-
-
 
 
 
