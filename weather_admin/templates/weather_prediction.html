@@ -1,20 +1,42 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
-
 <div class="card mt-3 mb-3">
     <div class="card-header">
         Artificial Intelligence
         <small class="fw-lighter mb-0 me-3 align-bottom">Prediction</small>
     </div>
     <div class="card-body">
-
+        <div class="bd-callout bd-callout-info">
+            <strong>Prediction</strong> {{predicted_weather_main}}
+        </div>
     </div>
-
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <div class="d-flex flex-row align-items-center gap-1">
+                <img src="{% static 'icons/temperature.svg' %}" width="24px" alt="temperature">
+                <h6 class="mb-0">Temperature</h6>
+                <small class="text-body-secondary">{{temperature}}</small>
+            </div>
+        </li>
+        <li class="list-group-item">
+            <div class="d-flex flex-row align-items-center gap-1">
+                <img src="{% static 'icons/humidity.svg' %}" width="24px" alt="humiidty">
+                <h6 class="mb-0">Humidity</h6>
+                <small class="text-body-secondary">{{humidity}}</small>
+            </div>
+        </li>
+        <li class="list-group-item">
+            <div class="d-flex flex-row align-items-center gap-1">
+                <img src="{% static 'icons/pressure.svg' %}" width="24px" alt="pressure">
+                <h6 class="mb-0">Pressure</h6>
+                <small class="text-body-secondary">{{pressure}}</small>
+            </div>
+        </li>
+    </ul>
     <div class="card-footer text-body-secondary">
-
+        <small class="text-body-secondary">Based on Temperature, Humidity and Pressure</small>
     </div>
 </div>
-
 
 {% endblock %}

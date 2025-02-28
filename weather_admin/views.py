@@ -99,10 +99,24 @@ def air_pollution_forecast(request):
 
 def weather_prediction(request):
     if request.user.is_authenticated:
-        return render(request, 'weather_prediction.html', {})
+        open_weather_service = OpenWeatherService()
+        weather_data, error_message = open_weather_service.current_weather_data(27.7172, 85.3240)
+
+        weather_prediction_service = WeatherPredictionService()
+        temperature = weather_data['main']['temp']
+        humidity = weather_data['main']['humidity']
+        pressure = weather_data['main']['pressure']
+        predicted_weather_main = weather_prediction_service.predict_weather_main(
+            temperature=temperature,
+            humidity=humidity,
+            pressure=pressure
+        )
+        
+        logger.debug(weather_data)
+        return render(request, 'weather_prediction.html', {'temperature':temperature, 'humidity':humidity, 'pressure':pressure, 'predicted_weather_main':predicted_weather_main})
     else:
         return render(request, 'login.html', {})
-
+''
 
 
 def admin_login(request):
