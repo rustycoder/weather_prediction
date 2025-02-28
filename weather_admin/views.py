@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 from weather_prediction.settings import EMAIL_HOST_USER
 
 from .service.OpenWeatherService import OpenWeatherService
+from .service.WeatherPredictionService import WeatherPredictionService
 from .forms import SignUpForm, ProfileForm
 from .models import Profile
 
@@ -24,8 +25,19 @@ def admin_dashboard(request):
 
         open_weather_service = OpenWeatherService()
         weather_data, error_message = open_weather_service.current_weather_data(27.7172, 85.3240)
+
+        weather_prediction_service = WeatherPredictionService()
+        temperature = weather_data['main']['temp']
+        humidity = weather_data['main']['humidity']
+        pressure = weather_data['main']['pressure']
+        predicted_weather_main = weather_prediction_service.predict_weather_main(
+            temperature=temperature,
+            humidity=humidity,
+            pressure=pressure
+        )
+        
         logger.debug(weather_data)
-        return render(request, 'dashboard.html', {'current_user':current_user, 'current_profile':current_profile, 'weather_data':weather_data})
+        return render(request, 'dashboard.html', {'current_user':current_user, 'current_profile':current_profile, 'weather_data':weather_data, 'predicted_weather_main':predicted_weather_main})
     else:
         return render(request, 'login.html', {})
 
