@@ -9,9 +9,20 @@
                 <small class="fw-lighter mb-0 me-3 align-bottom">Realtime</small>
             </div>
             <div class="card-body">
-                <img src="https://openweathermap.org/img/wn/{{weather_data.weather.0.icon}}@2x.png" class="card-img-top"
-                    alt="{{weather_data.weather.0.description}}">
-                <p class="card-text">{{weather_data.weather.0.main}}</p>
+                <div class="d-flex flex-column">
+                    <div class="d-flex flex-row align-items-center gap-1">
+                        <img src="https://openweathermap.org/img/wn/{{weather_data.weather.0.icon}}@2x.png" width="30px"
+                            alt="{{weather_data.weather.0.description}}">
+                        <h6 class="mb-0">Weather</h6>
+                    </div>
+                    <h1 class="display-3">{{weather_data.weather.0.main}}</h1>
+                    <small class="fw-lighter mb-0 me-3 align-bottom">
+                        {{weather_data.weather.0.description}}</small>
+                    <div class="bd-callout bd-callout-info">
+                        <strong>Prediction</strong> {{predicted_weather_main}}
+                    </div>
+                </div>
+
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">Temperature {{weather_data.main.temp}}
