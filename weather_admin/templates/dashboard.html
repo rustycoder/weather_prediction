@@ -4,7 +4,7 @@
 <div class="card mt-3">
     <div class="card-header">
         Open Weather Data
-        <small class="fw-lighter mb-0 me-3 align-bottom">Realtime and Prediction</small>
+        <small class="fw-lighter mb-0 me-3 align-bottom">Dashboard</small>
     </div>
     <div class="card-body">
         <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -110,6 +110,110 @@
                 </div>
             </div>
 
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <div class="d-flex flex-row align-items-center gap-1">
+                                <img src="{% static 'icons/air.svg' %}" width="30px" alt="air pollution">
+                                <h6 class="mb-0">Air Quality Index</h6>
+                            </div>
+                            <h1 class="display-3">{{air_pollution_data.list.0.main.aqi}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom">
+                                {{air_pollution_data.list.0.main.qualitative_name}}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <h6 class="mb-0">Carbon Monoxide</h6>
+                            <h1 class="display-4">{{air_pollution_data.list.0.components.co}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom"> μg/m3</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <h6 class="mb-0">Nitrogen Monoxide</h6>
+                            <h1 class="display-4">{{air_pollution_data.list.0.components.no}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom"> μg/m3</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <h6 class="mb-0">Nitrogen Dioxide</h6>
+                            <h1 class="display-4">{{air_pollution_data.list.0.components.no2}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom"> μg/m3</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <h6 class="mb-0">Ozone</h6>
+                            <h1 class="display-4">{{air_pollution_data.list.0.components.o3}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom"> μg/m3</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <h6 class="mb-0">Ammonia</h6>
+                            <h1 class="display-4">{{air_pollution_data.list.0.components.nh3}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom"> μg/m3</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <h6 class="mb-0">Sulphur Dioxide</h6>
+                            <h1 class="display-4">{{air_pollution_data.list.0.components.so2}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom"> μg/m3</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <h6 class="mb-0">Particulates (PM2.5)</h6>
+                            <h1 class="display-4">{{air_pollution_data.list.0.components.pm2_5}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom"> μg/m3</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <h6 class="mb-0">Particulates (PM10)</h6>
+                            <h1 class="display-4">{{air_pollution_data.list.0.components.pm10}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom"> μg/m3</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="card-footer text-body-secondary">

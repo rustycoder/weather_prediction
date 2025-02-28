@@ -25,6 +25,7 @@ def admin_dashboard(request):
 
         open_weather_service = OpenWeatherService()
         weather_data, error_message = open_weather_service.current_weather_data(27.7172, 85.3240)
+        logger.debug(weather_data)
 
         weather_prediction_service = WeatherPredictionService()
         temperature = weather_data['main']['temp']
@@ -35,9 +36,13 @@ def admin_dashboard(request):
             humidity=humidity,
             pressure=pressure
         )
+        logger.debug(predicted_weather_main)
         
-        logger.debug(weather_data)
-        return render(request, 'dashboard.html', {'current_user':current_user, 'current_profile':current_profile, 'weather_data':weather_data, 'predicted_weather_main':predicted_weather_main})
+        open_weather_service = OpenWeatherService()
+        air_pollution_data, error_message = open_weather_service.current_air_pollution_data(27.7172, 85.3240)
+        logger.debug(air_pollution_data)
+        
+        return render(request, 'dashboard.html', {'current_user':current_user, 'current_profile':current_profile, 'weather_data':weather_data, 'air_pollution_data':air_pollution_data, 'predicted_weather_main':predicted_weather_main})
     else:
         return render(request, 'login.html', {})
 
