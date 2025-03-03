@@ -5,13 +5,12 @@
     <div class="card my-5 glass">
         <div class="card-body">
             <div class="col-md-12 px-3">
-                <img src="{% static 'images/logo_full_white.png' %}" class="rounded mx-auto d-block" width="300"
+                <img src="{% static 'images/logo_full.png' %}" class="rounded mx-auto d-block" width="300"
                     alt="Weather Prediction Logo">
                 <form method="POST" action="{% url 'weather_admin_login' %}">
                     {% csrf_token %}
                     <div class="mb-3">
-                        <input type="text" class="form-control glass" name="username" placeholder="Username" required
-                            autofocus>
+                        <input type="text" class="form-control glass" name="username" placeholder="Username" required>
                     </div>
                     <div class="mb-3">
                         <input type="password" class="form-control glass" name="password" placeholder="Password"
