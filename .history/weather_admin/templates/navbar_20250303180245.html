@@ -1,6 +1,6 @@
 {% load static %}
-<nav class="navbar navbar-expand-lg sticky-top glass">
-    <div class="container">
+<nav class="navbar navbar-expand-lg container">
+    <div class="container-fluid">
         <a class="navbar-brand me-1" href="{% url 'weather_admin_dashboard' %}">
             <img src="{% static 'images/logo.png' %}" alt="Weather Prediction Logo" height="30"
                 class="d-inline-block align-text-top me-1">
@@ -12,8 +12,8 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            {% if user.is_authenticated %}
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                {% if user.is_authenticated %}
                 <li class="nav-item"><a class="nav-link" href="{% url 'weather_admin_dashboard' %}">Dashboard</a></li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -44,19 +44,11 @@
                 </li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'weather_admin_profile' %}">Profile</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'weather_admin_logout' %}">Logout</a></li>
-            </ul>
-            <form class="d-flex" role="search" method="POST" , action="{% url 'weather_admin_search' %}">
-                {% csrf_token %}
-                <input class="form-control me-2" type="search" placeholder="City, State" aria-label="Search"
-                    name="location">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-            {% else %}
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                {% else %}
                 <li class="nav-item"><a class="nav-link" href="{% url 'weather_admin_login' %}">Login</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'weather_admin_register' %}">Register</a></li>
+                {% endif %}
             </ul>
-            {% endif %}
         </div>
     </div>
 </nav>

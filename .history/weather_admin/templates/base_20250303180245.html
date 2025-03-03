@@ -12,12 +12,12 @@
     <link rel="icon" href="{% static 'images/logo_fav.ico' %}" type="image/x-icon">
 </head>
 
-<body class="beautiful_bg">
+<body>
     {% include 'navbar.html' %}
     <div class="container">
         {% if messages %}
         {% for message in messages %}
-        <div class="alert alert-warning alert-dismissible fade show mt-5" role="alert">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
             <strong>Hey!</strong> {{message}}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>

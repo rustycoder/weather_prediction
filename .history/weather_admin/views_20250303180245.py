@@ -47,23 +47,6 @@ def admin_dashboard(request):
         return render(request, 'login.html', {})
 
 
-def admin_search(request):
-    if request.user.is_authenticated:
-        if request.method == 'POST':
-            location = request.POST['location']
-            logger.debug(location)
-            if len(location)!=0:
-                logger.debug("Location found")
-                open_weather_service = OpenWeatherService()
-                weather_data, error_message = open_weather_service.current_weather_search(location=location)
-                logger.debug(weather_data)    
-                messages.success(request, f"Weather overview for {location}.")
-                return render(request, 'search.html', {'weather_data':weather_data, 'location':location})
-            logg
-        else:
-            redirect('weather_admin_dashboard')
-    
-    return render(request, 'login.html', {})
 
 def profile(request):
     if request.user.is_authenticated:

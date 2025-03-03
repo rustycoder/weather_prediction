@@ -27,26 +27,34 @@ class OpenWeatherService:
         except Exception as e: 
             return None, str(e)
     
-    def current_weather_search(self, location):
+    def current_weather_date(self, city):
         # https://api.openweathermap.org/data/2.5/weather?q=Tokyo&appid=ad7a0d3241b9002f727b41ce4323a46d
-        url = OPEN_API_DATA_URL + f"weather?q={location}&appid={OPEN_API_KEY}"
-        logger.debug(url)
-        try:
-            logger.info("Getting Current Weather Data...")
-            response = requests.get(url)
-            response.raise_for_status()  
+        pass
 
-            weather_data = response.json()
-            logger.debug(weather_data['dt'])
-            weather_data['dt'] = datetime.fromtimestamp(weather_data['dt'])
+    # def weather_prediction(self):
+    #     data = res.json()
+    #     features = {
+    #         'temperature': data['main']['temp'],
+    #         'humidity': data['main']['humidity'],
+    #         'pressure': data['main']['pressure'],
+    #         'wind_speed': data['wind']['speed'],
+    #         'wind_degree': data['wind']['deg'],
+    #         'clouds_percentage': data['clouds']['all'],
+    #         'visibility': data['visibility']
+    #     }
+    #     X_feat = pd.DataFrame([features])
+    #     # model_pkl = 'model/model.pkl'
+    #     model_pkl = os.path.join(os.path.dirname(__file__), 'static/model/model.pkl') 
 
-            return weather_data, None
-        except requests.exceptions.RequestException as e:
-            return None, str(e)
-        except Exception as e: 
-            return None, str(e)
-        
-    
+    #     try:
+    #         with open(model_pkl, 'rb') as m:
+    #             model = pickle.load(m)
+    #         y_pred = model.predict(X_feat)
+    #         return y_pred[0]
+    #     except Exception as e:
+    #         print(os.path.join(os.path.dirname(__file__)))
+    #         print('file not found')
+    #         return {'message': 'something went wrong {e}'}
 
     def five_day_weather_forecast(self, latitude, longitude):
         # https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API_key}
