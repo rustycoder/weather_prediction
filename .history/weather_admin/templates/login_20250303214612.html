@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+{% leaflet_map "yourmap" %}
 <div class="col-md-4 offset-md-8">
     <div class="card my-5 glass">
         <div class="card-body">
@@ -31,5 +32,4 @@
         </div>
     </div>
 </div>
-
 {% endblock %}

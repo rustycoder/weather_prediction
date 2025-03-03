@@ -54,10 +54,6 @@
             console.log(event.latlng.lng)
             L.marker([lat, lng]).addTo(map)
             // fetch(`/weather_admin?latitude=${lat}&longitude=${lng}`)
-            var popup = L.popup()
-                .setLatLng([lat, lng])
-                .setContent(`<p>Lat : ${lat} and Long:${lng}</p>`)
-                .openOn(map);
         })
     </script>
 </body>

@@ -21,6 +21,6 @@ urlpatterns = [
     path('air_pollution_forecast', views.air_pollution_forecast, name='weather_admin_air_pollution_forecast'),
 
     path('api/v1/weather_realtime', views.api_weather_realtime, name='api_weather_realtime'),
-    path('api/v1/air_pollution_realtime', views.api_air_pollution_realtime, name='api_air_pollution_realtime'),
+    path('api/v1/air_pollution_realtime', views.api_air_pollution_realtime, name='api_air_pollution_realtime')
 
 ]

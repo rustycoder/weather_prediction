@@ -10,7 +10,7 @@
         <div id="map" style="height: 600px; width: 100%;"></div>
     </div>
     <div class="card-footer text-body-secondary">
-        <small id="map_footer" class="text-body-secondary">Latitude 27.7172, Longitude 85.3240</small>
+        <small class="text-body-secondary">Fetched on {{weather_data.dt}}</small>
     </div>
 </div>
 
@@ -237,7 +237,7 @@
         </div>
     </div>
     <div class="card-footer text-body-secondary">
-        <small class="text-body-secondary">Fetched on {{weather_data.dt}}</small>
+        <small id="map_footer" class="text-body-secondary"></small>
     </div>
 </div>
 {% endblock %}

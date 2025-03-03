@@ -284,11 +284,3 @@ def admin_reset_password(request):
                 return render(request, 'reset_password.html', {'username':username, 'otp':otp})
         else:
             return redirect('weather_admin_login')
-        
-
-# TODO Weather Prediction API
-def api_weather_realtime(request):
-    pass
-
-def api_air_pollution_realtime(request):
-    pass

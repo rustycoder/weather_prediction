@@ -20,14 +20,15 @@ import random
 
 def admin_dashboard(request):
     if request.user.is_authenticated:
-        latitude = request.GET['latitude'] if request.method == 'GET' and 'latitude' in request.GET else 27.7172
-        longitude = request.GET['longitude'] if request.method == 'GET' and 'longitude' in request.GET else 85.3240
-
+        if request.method == 'GET':
+            latitude = request.GET['latitude']
+            longitude = request.GET['longitude']
+        
         current_user = User.objects.get(username=request.user)
         current_profile = Profile.objects.get(user=current_user)
 
         open_weather_service = OpenWeatherService()
-        weather_data, error_message = open_weather_service.current_weather_data(latitude=latitude, longitude=longitude)
+        weather_data, error_message = open_weather_service.current_weather_data(27.7172, 85.3240)
         logger.debug(weather_data)
 
         weather_prediction_service = WeatherPredictionService()
@@ -284,11 +285,3 @@ def admin_reset_password(request):
                 return render(request, 'reset_password.html', {'username':username, 'otp':otp})
         else:
             return redirect('weather_admin_login')
-        
-
-# TODO Weather Prediction API
-def api_weather_realtime(request):
-    pass
-
-def api_air_pollution_realtime(request):
-    pass
