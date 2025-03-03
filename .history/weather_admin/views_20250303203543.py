@@ -62,7 +62,6 @@ def admin_search(request):
         return redirect('weather_admin_dashboard')
     return render(request, 'login.html', {})
 
-
 def profile(request):
     if request.user.is_authenticated:
         current_user = User.objects.get(username=request.user)
@@ -153,7 +152,7 @@ def admin_login(request):
                 messages.success(request, "You have been logged in.")
                 return redirect('weather_admin_dashboard')
             else:
-                messages.success(request, "Invalid username and password. Please try again!.")
+                messages.success(request, "There was an error. Please, try again.")
                 return render(request, 'login.html', {})
         else:
             return render(request, 'login.html', {})

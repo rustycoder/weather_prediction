@@ -8,6 +8,9 @@
     </div>
     <div class="card-body p-0">
         <table class="table">
+            <thead>
+
+            </thead>
             <tbody>
                 {% for l in air_pollution_forecast.list %}
                 <tr class="table-light">
@@ -19,6 +22,7 @@
                             <div class="d-flex flex-row align-items-center">
                                 <img src="{% static 'icons/air.svg' %}" width="24px" alt="air pollution">
                                 <h6 class="mb-0">Air Quality Index</h6>
+
                             </div>
                             <h1 class="display-4">{{l.main.aqi}}</h1>
                             <small class="fw-lighter mb-0 me-3 align-bottom">

@@ -9,13 +9,16 @@
     </div>
     <div class="card-body p-0">
         <table class="table">
+            <thead>
+
+            </thead>
             <tbody>
                 {% for l in weather_forecast.list %}
                 <tr class="table-light">
-                    <td colspan="6" class="px-3">{{l.dt_txt}}</td>
+                    <td colspan="6">{{l.dt_txt}}</td>
                 </tr>
                 <tr>
-                    <td class="px-3">
+                    <td>
                         <div class="d-flex flex-column">
                             <div class="d-flex flex-row align-items-center">
                                 <img src="https://openweathermap.org/img/wn/{{l.weather.0.icon}}@2x.png" width="24px"
