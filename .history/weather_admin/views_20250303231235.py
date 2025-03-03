@@ -40,7 +40,8 @@ def admin_dashboard(request):
         )
         logger.debug(predicted_weather_main)
         
-        air_pollution_data, error_message = open_weather_service.current_air_pollution_data(latitude=latitude, longitude=longitude)
+        open_weather_service = OpenWeatherService()
+        air_pollution_data, error_message = open_weather_service.current_air_pollution_data(27.7172, 85.3240)
         logger.debug(air_pollution_data)
         
         return render(request, 'dashboard.html', {'current_user':current_user, 'current_profile':current_profile, 'weather_data':weather_data, 'air_pollution_data':air_pollution_data, 'predicted_weather_main':predicted_weather_main})
@@ -285,28 +286,19 @@ def admin_reset_password(request):
         
 
 # TODO Weather Prediction API
-def api_weather_overview(request):
+def api_weather_realtime(request):
     latitude = request.GET.get('latitude')
     longitude = request.GET.get('longitude')
 
     open_weather_service = OpenWeatherService()
     weather_data, error_message = open_weather_service.current_weather_data(latitude=latitude, longitude=longitude)
-    air_pollution_data, error_message = open_weather_service.current_air_pollution_data(27.7172, 85.3240)
 
-    weather_prediction_service = WeatherPredictionService()
-    temperature = weather_data['main']['temp']
-    humidity = weather_data['main']['humidity']
-    pressure = weather_data['main']['pressure']
-    predicted_weather_main = weather_prediction_service.predict_weather_main(
-        temperature=temperature,
-        humidity=humidity,
-        pressure=pressure
-    )
+    open_weather_service = OpenWeatherService()
+    air_pollution_data, error_message = open_weather_service.current_air_pollution_data(27.7172, 85.3240)
     
     return JsonResponse({
         'latitude':latitude,
         'longitude':longitude,
         'weather':weather_data,
-        'air_pollution':air_pollution_data,
-        'prediction':predicted_weather_main
+        'air_pollution':air_pollution_data
     })

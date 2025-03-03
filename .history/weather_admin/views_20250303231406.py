@@ -285,7 +285,7 @@ def admin_reset_password(request):
         
 
 # TODO Weather Prediction API
-def api_weather_overview(request):
+def api_weather_realtime(request):
     latitude = request.GET.get('latitude')
     longitude = request.GET.get('longitude')
 
@@ -294,19 +294,19 @@ def api_weather_overview(request):
     air_pollution_data, error_message = open_weather_service.current_air_pollution_data(27.7172, 85.3240)
 
     weather_prediction_service = WeatherPredictionService()
-    temperature = weather_data['main']['temp']
-    humidity = weather_data['main']['humidity']
-    pressure = weather_data['main']['pressure']
-    predicted_weather_main = weather_prediction_service.predict_weather_main(
-        temperature=temperature,
-        humidity=humidity,
-        pressure=pressure
-    )
+        temperature = weather_data['main']['temp']
+        humidity = weather_data['main']['humidity']
+        pressure = weather_data['main']['pressure']
+        predicted_weather_main = weather_prediction_service.predict_weather_main(
+            temperature=temperature,
+            humidity=humidity,
+            pressure=pressure
+        )
     
     return JsonResponse({
         'latitude':latitude,
         'longitude':longitude,
         'weather':weather_data,
         'air_pollution':air_pollution_data,
-        'prediction':predicted_weather_main
+        'prediction':prediction
     })

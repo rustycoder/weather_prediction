@@ -285,7 +285,7 @@ def admin_reset_password(request):
         
 
 # TODO Weather Prediction API
-def api_weather_overview(request):
+def api_weather_realtime(request):
     latitude = request.GET.get('latitude')
     longitude = request.GET.get('longitude')
 
