@@ -17,7 +17,7 @@ class Profile(models.Model):
     )
 
     def __str__(self):
-        return(f"{self.phone}, {self.user.username}")    
+        return("User Profile")    
     
 class ProfileAdmin(ModelAdmin):
     list_display = ('created_at', 'otp', 'phone', 'address', 'city', 'state', 'zipcode', 'user_id')
