@@ -54,6 +54,10 @@
                 var myIcon = L.icon({
                     iconUrl: `https://openweathermap.org/img/wn/${result.weather.weather[0].icon}@2x.png`,
                     iconSize: [30, 30],
+                    iconAnchor: [22, 94],
+                    popupAnchor: [-3, -76],
+                    shadowSize: [68, 95],
+                    shadowAnchor: [22, 94]
                 });
                 L.marker([lat, lng], { icon: myIcon }).addTo(map)
 
