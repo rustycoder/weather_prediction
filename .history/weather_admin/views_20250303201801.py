@@ -60,6 +60,7 @@ def admin_search(request):
                 messages.success(request, f"Weather overview for {location}.")
                 return render(request, 'search.html', {'weather_data':weather_data, 'location':location})
         return redirect('weather_admin_dashboard')
+    
     return render(request, 'login.html', {})
 
 def profile(request):
