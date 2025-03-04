@@ -25,6 +25,7 @@ def admin_dashboard(request):
 
         open_weather_service = OpenWeatherService()
         weather_data, error_message = open_weather_service.current_weather_data(latitude=latitude, longitude=longitude)
+        logger.debug(weather_data)
 
         weather_prediction_service = WeatherPredictionService()
         temperature = weather_data['main']['temp']
@@ -35,8 +36,10 @@ def admin_dashboard(request):
             humidity=humidity,
             pressure=pressure
         )
+        logger.debug(predicted_weather_main)
         
         air_pollution_data, error_message = open_weather_service.current_air_pollution_data(latitude=latitude, longitude=longitude)
+        logger.debug(air_pollution_data)
         
         return render(request, 'dashboard.html', {'current_user':current_user, 'current_profile':current_profile, 'weather_data':weather_data, 'air_pollution_data':air_pollution_data, 'predicted_weather_main':predicted_weather_main})
     else:
@@ -47,9 +50,12 @@ def admin_search(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
             location = request.POST['location']
+            logger.debug(location)
             if len(location)!=0:
+                logger.debug("Location found")
                 open_weather_service = OpenWeatherService()
                 weather_data, error_message = open_weather_service.current_weather_search(location=location)
+                logger.debug(weather_data)    
                 messages.success(request, f"Weather overview for {location}.")
                 return render(request, 'search.html', {'weather_data':weather_data, 'location':location})
         return redirect('weather_admin_dashboard')
@@ -70,6 +76,7 @@ def weather_realtime(request):
     if request.user.is_authenticated:
         open_weather_service = OpenWeatherService()
         weather_data, error_message = open_weather_service.current_weather_data(27.7172, 85.3240)
+        logger.debug(weather_data)
         return render(request, 'weather_realtime.html', {'weather_data':weather_data})
     else:
         return render(request, 'login.html', {})
@@ -80,6 +87,7 @@ def air_pollution_realtime(request):
     if request.user.is_authenticated:
         open_weather_service = OpenWeatherService()
         air_pollution_data, error_message = open_weather_service.current_air_pollution_data(27.7172, 85.3240)
+        logger.debug(air_pollution_data)
         return render(request, 'air_pollution_realtime.html', {'air_pollution_data':air_pollution_data})
     else:
         return render(request, 'login.html', {})
@@ -90,6 +98,7 @@ def weather_forecast(request):
     if request.user.is_authenticated:
         open_weather_service = OpenWeatherService()
         weather_forecast, error_message = open_weather_service.five_day_weather_forecast(27.7172, 85.3240)
+        logger.debug(weather_forecast)
         return render(request, 'weather_forecast.html', {'weather_forecast':weather_forecast})
     else:
         return render(request, 'login.html', {})
@@ -100,6 +109,7 @@ def air_pollution_forecast(request):
     if request.user.is_authenticated:
         open_weather_service = OpenWeatherService()
         air_pollution_forecast, error_message = open_weather_service.forecast_air_pollution_data(27.7172, 85.3240)
+        logger.debug(air_pollution_forecast)
         return render(request, 'air_pollution_forecast.html', {'air_pollution_forecast':air_pollution_forecast})
     else:
         return render(request, 'login.html', {})
@@ -121,6 +131,7 @@ def weather_prediction(request):
             pressure=pressure
         )
         
+        logger.debug(weather_data)
         return render(request, 'weather_prediction.html', {'temperature':temperature, 'humidity':humidity, 'pressure':pressure, 'predicted_weather_main':predicted_weather_main})
     else:
         return render(request, 'login.html', {})
@@ -161,9 +172,11 @@ def admin_register(request):
                 username = form.cleaned_data['username']
                 password = form.cleaned_data['password1']
                 user = authenticate(username=username, password=password)
+                logger.debug(user)
                 login(request, user)
                 current_user = User.objects.get(username=user)
                 current_profile = Profile()
+                logger.debug(current_profile)
                 current_profile.otp = random.randint(1000000, 9999999)
                 current_profile.user = current_user
                 current_profile.save()
